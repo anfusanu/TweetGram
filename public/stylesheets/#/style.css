@@ -1,0 +1,200 @@
+@font-face {
+    font-family: "Raleway";
+    src: url("fonts/Raleway-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Raleway-semibold";
+    src: url("fonts/Raleway-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Raleway-bold";
+    src: url("fonts/Raleway-Bold.ttf");
+}
+
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+*{
+    scroll-behavior: smooth;
+
+}
+body{
+    margin: 0;
+    font-family: "Raleway";
+    overflow-x: hidden;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+	animation: gradient 10s ease infinite;
+}
+
+.mycard {
+    width: 40%;
+    box-shadow: 20px rgba(black, black, black, .4 );
+    padding: 2.5rem;
+    border-radius: 3%;
+    background: rgba(255, 255, 255,0.8);
+}
+.loginHead{
+    font-family: "Raleway-bold";
+    font-size: 3.2rem;
+}
+.myInput{
+    border: 3px solid rgba(128, 128, 128,.2);
+    background: rgba(255, 255, 255,0.8);
+    font-family: "Raleway-semibold";
+    box-shadow: none;
+    transition: none !important;
+}
+
+.passEye{
+    cursor: pointer;
+}
+
+.passEyeBG{
+    background: rgba(255, 255, 255,0.8);
+    padding: 1rem;
+    border: 3px solid rgba(128, 128, 128,.2);
+    border-left: 0;
+
+}
+.myInput:focus{
+    border: 3px solid rgba(0, 17, 255, 0.4);
+
+}
+.myInput:focus + .passEyeBG{
+    border: 3px solid rgba(0, 17, 255, 0.4);
+    border-left: 0;
+
+}
+.buttonLogin {
+    width: 100%;
+    background: #827ffe;
+    color: white;
+    font-size: 1.5rem;
+    font-family: "Raleway-bold";
+}
+
+.buttonLogin:hover {
+    background-color: #4f4d99;
+    color: white;
+}
+.formValid{
+    color: rgb(255, 0, 0); 
+    font-family: "Raleway-SemiBold";
+    opacity: .7;
+    padding-top: .5rem;
+}
+
+
+.mainNav{
+    background : rgba(255, 255, 255, .5);
+    border-bottom: 3px solid #04c2c9;
+}
+.navHead{
+
+    text-decoration: none;
+    color: white;
+    padding: 0  2rem;
+
+}
+.navHead:hover {
+    color:red;
+}
+
+
+.navHeadItem{
+    font-family:"Raleway-bold";
+    font-size: 1.3rem;
+}
+
+
+.mainView{
+    height : calc(50vh + 53px);
+    overflow: hidden;
+}
+.mainText{
+    text-align: center;
+    padding-top: 30vh;
+}
+.mainHello{
+    color: white;
+    font-family: "Raleway-SemiBold";
+
+}
+.mainName{
+    color: White;
+    font-family: "Raleway-Bold";
+    
+}
+
+
+.contactWork{
+    color: teal; 
+}
+
+.contactFormItem{
+    margin-top: 10px;
+    border: 3px solid rgba(128, 128, 128,.2);
+    background: whitesmoke;
+    font-family: "Raleway-semibold";
+}
+.contactFormItem:focus{
+    background: whitesmoke;
+}
+
+.contactFormButton,.contactFormButton:focus{
+    padding: 15px;
+    vertical-align: middle;
+    background: #1b242f;
+    border: #fff solid 2px;
+    color: white;
+    width: 100%;
+
+}
+.contactFormButton:hover{
+    background: white ;
+    border: #1b242f solid 2px;
+    color: #1b242f;
+    font-family: "Raleway-Bold";
+
+}
+
+
+
+
+
+
+.footerLast{
+    text-align: center;
+    justify-content: center;
+    padding: 5vh 0 5vh 0;
+    background: #121920;
+    color: #fff;
+}
+.footerItem{
+    font-size: large;
+    text-decoration: none;
+    padding: 0 1rem 1rem 1rem;
+    color: floralwhite;
+}
+
+
+
+@media screen and (max-width: 1060px) {
+    .mycard {
+        width: 95%;
+        padding: .5rem;
+    }
+}

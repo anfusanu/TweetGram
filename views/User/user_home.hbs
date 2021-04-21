@@ -1,0 +1,114 @@
+<nav id="home" class="navbar navbar-light bg-dark px-5 py-3" style="
+    position: sticky;
+    top: 0;
+    z-index: 1;">
+
+  <a class="navbar-brand text-white fw-bold">Global Chat</a>
+  <div class="form-inline">
+    <span class="px-5 text-white fw-bold"> {{user}}</span>
+    <button class="btn btn-outline-danger my-2 my-sm-0 fw-bold"
+      onclick="window.location.href='/user/logout'">Logout</button>
+  </div>
+</nav>
+
+<div class="container mt-4">
+
+
+
+  <!-- Content wrapper start -->
+  <div class="content-wrapper">
+
+    <!-- Row start -->
+    <div class="row gutters">
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+
+        <div class="card m-0">
+
+          <!-- Row start -->
+          <div class="row no-gutters">
+
+            <div class="col-md-12">
+              <div class="selected-user">
+                <span class="h4">Tweetgram</span>
+              </div>
+              <div class="chat-container">
+                <ul class="chat-box chatContainerScroll">
+                  {{#each messages}}
+                  {{#if_eq  this.senderId ../docId }}
+                  <li class="chat-right">
+                    <div class="chat-hour">{{this.time}} <span class="fa fa-check-circle"></span></div>
+                    <div class="chat-text">{{this.message}}
+                    </div>
+                    <div class="chat-avatar">
+                      <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                      <div class="chat-name">{{this.senderName}}</div>
+                    </div>
+                  </li>
+                  {{else}}
+          
+
+                  <li class="chat-left">
+                    <div class="chat-avatar">
+                      <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                      <div class="chat-name">{{this.senderName}}</div>
+                    </div>
+                    <div class="chat-text">{{this.message}}
+                    </div>
+                    <div class="chat-hour">{{this.time}} <span class="fa fa-check-circle"></span></div>
+                  </li>
+
+                  {{/if_eq}}
+                  {{/each}}
+
+                </ul>
+                <div class="row">
+                  <form action="/user/tweetForm" method="POST">
+                    <div class="col-md-12 form-group">
+                      <textarea id="message" name="message" class="form-control" rows="3"
+                        placeholder="Type your message here..." required></textarea>
+                    </div>
+                    <div class="col-md-12  mt-2">
+                      <button class="btn btn-primary p-2 w-100 fw-bold" style="font-size: 1.5rem;">SEND</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Row end -->
+        </div>
+
+      </div>
+
+    </div>
+    <!-- Row end -->
+
+  </div>
+  <!-- Content wrapper end -->
+
+</div>
+
+<i onclick="window.location.href='#message'" id="myBtn" class="fas fa-arrow-up" title="Go to top"></i>
+<i onclick="window.location.href='#home'" id="myBtn2" class="fas fa-arrow-down" title="Go to bottom"></i>
+
+
+
+<script>
+  tbutton = document.getElementById("myBtn");
+  bbutton = document.getElementById("myBtn2");
+
+
+  window.onscroll = function () { scrollFunction() };
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      tbutton.style.display = "block";
+      bbutton.style.display = "block";
+    } else {
+      tbutton.style.display = "none";
+      bbutton.style.display = "none";
+
+    }
+  }
+</script>
