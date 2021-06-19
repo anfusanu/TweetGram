@@ -40,7 +40,6 @@ body{
 }
 
 .mycard {
-    width: 40%;
     box-shadow: 20px rgba(black, black, black, .4 );
     padding: 2.5rem;
     border-radius: 3%;

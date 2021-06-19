@@ -1,0 +1,31 @@
+<section class="chat__section">
+    <div class="brand">
+        <img height="40" src="/wassup.png" alt="">
+        <h1>Wassup</h1>
+    </div>
+    <input type="hidden" id="username" value="{{user.username}}">
+    <input type="hidden" id="userid" value="{{user.id}}">
+
+    <div class="message__area">
+        {{#each messages}}
+        {{#ifeq senderId ../user.id}}
+        <div class="message outgoing">
+            <h4>{{senderName}}</h4>
+            <p>{{message}}</p>
+        </div>
+        {{else}}
+        <div class="message incoming">
+            <h4>{{senderName}}</h4>
+            <p>{{message}}</p>
+        </div>
+        {{/ifeq}}
+        {{/each}}
+
+
+
+
+    </div>
+    <div>
+        <textarea id="textarea" cols="30" rows="1" placeholder="Write a message..."></textarea>
+    </div>
+</section>
