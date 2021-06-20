@@ -13,7 +13,7 @@ const verifyLogin = (req, res, next) => {
 
 
 /* GET home page. */
-router.get('/', verifyLogin, function (req, res, next) {
+router.get('/chat', verifyLogin, function (req, res, next) {
   db.get().collection('messages').find().toArray()
     .then((messages) => {
       console.log(messages);
@@ -25,7 +25,7 @@ router.get('/', verifyLogin, function (req, res, next) {
 
 router.get('/login', function (req, res) {
   if (req.session.user) {
-    res.redirect('/Nacmen')
+    res.redirect('/Nacmen/chat')
   } else {
     message = false;
     if (req.session.invalid) {
@@ -51,7 +51,7 @@ router.post('/login', function (req, res) {
             .then(check => {
               if (check) {
                 req.session.user = { username: result.name, id: result._id };
-                res.redirect('/Nacmen');
+                res.redirect('/Nacmen/chat');
               } else {
                 req.session.invalid = true
                 res.redirect('/Nacmen/login')
@@ -71,31 +71,4 @@ router.get('/lgt', verifyLogin, function (req, res, next) {
 });
 
 
-
-router.get('/signup', function (req, res) {
-
-  bcrypt.hash('admin', 10).then(hash => {
-
-    db.get().collection('login').findOne({ email: 'mycks45@gmail.com' })
-      .then((result) => {
-        if (!result) {
-          db.get().collection('login').insertOne({
-            name: 'Babushka',
-            email: 'mycks45@gmail.com',
-            password: hash,
-            status: true
-          })
-            .then(inserted => {
-              req.session.user = { username: inserted.ops[0].name, userId: inserted.ops[0]._id }
-              res.redirect('/Nacmen');
-            })
-
-        } else {
-          req.session.userSignupErr = true;
-          res.redirect('/Nacmen/login');
-        }
-      })
-      .catch(error => console.error(error))
-  }).catch(error => console.error(error))
-});
 module.exports = router;
