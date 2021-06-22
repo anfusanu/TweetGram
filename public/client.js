@@ -8,9 +8,13 @@ let messageArea = document.querySelector('.message__area')
 
 textarea.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
-        let userName = document.getElementById('username').value;
-        let userId = document.getElementById('userid').value;
-        sendMessage(e.target.value, userName, userId)
+        if (textarea.value == '') {
+            alert('No more');
+        } else {
+            let userName = document.getElementById('username').value;
+            let userId = document.getElementById('userid').value;
+            sendMessage(e.target.value, userName, userId)
+        }
     }
 })
 
