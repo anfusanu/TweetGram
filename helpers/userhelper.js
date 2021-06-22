@@ -1,5 +1,4 @@
 const db = require('./connection')
-const bcrypt = require('bcrypt')
 const { ObjectId } = require('mongodb')
 
 module.exports = {
