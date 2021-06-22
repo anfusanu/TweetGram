@@ -1,7 +1,8 @@
 <section class="chat__section">
     <div class="brand">
         <img height="40" src="Nac.png" alt="">
-        <h1>Wassup</h1>
+        <h1>NACMEN</h1>
+        <button class="logoutButton" onclick="window.location.href = '/logout'">ESC</button>
     </div>
     <input type="hidden" id="username" value="{{user.username}}">
     <input type="hidden" id="userid" value="{{user.id}}">
@@ -12,6 +13,8 @@
         <div class="message outgoing">
             <h4>{{senderName}}</h4>
             <p>{{message}}</p>
+            {{!-- <h4>{{date}}</h4> --}}
+
         </div>
         {{else}}
         <div class="message incoming">

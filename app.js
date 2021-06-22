@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,10 +6,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session')
 var hbs = require('hbs')
-var db = require('./config/config')
+var db = require('./helpers/connection')
 
 
 var app = express();
+const passport = require('passport');
+const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var indexRouter = require('./routes/index');
 
@@ -69,6 +72,32 @@ db.connect((err) => {
   }
 }
 );
+
+
+app.use(passport.initialize());
+// app.use(passport.session());
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: "https://nacmen.anfus.xyz/google"
+
+},
+  function (accessToken, refreshToken, profile, done) {
+    let userProfile = profile;
+    return done(null, userProfile);
+  }
+));
+passport.serializeUser(function (user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
+
+
+
 app.use('/', indexRouter);
 
 

@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-var bcrypt = require('bcrypt');
-var db = require('../config/config')
+
+const helper = require('../helpers/userHelper');
+const passport = require('passport')
 
 const verifyLogin = (req, res, next) => {
   if (req.session.user) {
@@ -11,62 +12,50 @@ const verifyLogin = (req, res, next) => {
   }
 }
 
+const notLogin = (req, res, next) => {
+  if (req.session.user) {
+    res.redirect('/');
+  } else {
+    next()
+  }
+}
+
 
 /* GET home page. */
 router.get('/', verifyLogin, function (req, res, next) {
-  db.get().collection('messages').find().toArray()
-    .then((messages) => {
-      res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-      res.render('index', { messages, user: req.session.user })
-    })
-    .catch(error => console.error(error))
-});
-
-router.get('/login', function (req, res) {
-  if (req.session.user) {
-    res.redirect('/')
-  } else {
-    message = false;
-    if (req.session.invalid) {
-      var message = true;
-      req.session.invalid = false;
-    }
+  helper.getMessages(messages => {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-    res.render('login', { message: message });
-  }
+    res.render('index', { messages, user: req.session.user })
+  })
 });
 
-router.post('/login', function (req, res) {
-  let formData = req.body;
+router.get('/login', notLogin, function (req, res) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.render('login');
 
-  db.get().collection('login').findOne({ email: formData.username })
-    .then((result) => {
-      if (!result) {
-        req.session.invalid = true
-        res.redirect('/login')
-      } else {
-        if (result.status) {
-          bcrypt.compare(formData.password, result.password)
-            .then(check => {
-              if (check) {
-                req.session.user = { username: result.name, id: result._id };
-                res.redirect('/');
-              } else {
-                req.session.invalid = true
-                res.redirect('/login')
-              }
-            })
-        }
-        else {
-          res.render('error', { status: '403', message: 'You are Banned', layout: '' })
-        }
-      }
+});
+
+
+
+router.get('/login/google', notLogin,
+  passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+router.get('/google',
+  passport.authenticate('google', { failureRedirect: '/error' }),
+  function (req, res) {
+    helper.googleLogin(req.user._json, user => {
+      if (user.userExist) {
+        console.log(user);
+        req.session.user = { username: user.userName, id: user.userId };
+        res.redirect('/');
+      } else res.send('Access Denied');
     })
-    .catch(error => console.error(error))
-});
+  });
 
-router.get('/lgt', verifyLogin, function (req, res, next) {
+
+router.get('/logout', verifyLogin, function (req, res, next) {
   req.session.destroy()
+  res.redirect('/login')
 });
 
 
