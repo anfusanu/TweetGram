@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const helper = require('../helpers/userHelper');
+const helper = require('../helpers/chatHelper');
 const passport = require('passport')
 
 const verifyLogin = (req, res, next) => {
