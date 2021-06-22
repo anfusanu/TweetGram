@@ -24,7 +24,7 @@ router.get('/', verifyLogin, function (req, res, next) {
 
 router.get('/login', function (req, res) {
   if (req.session.user) {
-    res.redirect('/chat')
+    res.redirect('/')
   } else {
     message = false;
     if (req.session.invalid) {
