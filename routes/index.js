@@ -13,7 +13,7 @@ const verifyLogin = (req, res, next) => {
 
 
 /* GET home page. */
-router.get('/', verifyLogin, function (req, res, next) {
+router.get('/chat', verifyLogin, function (req, res, next) {
   db.get().collection('messages').find().toArray()
     .then((messages) => {
       res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
@@ -24,7 +24,8 @@ router.get('/', verifyLogin, function (req, res, next) {
 
 router.get('/login', function (req, res) {
   if (req.session.user) {
-    res.redirect('')
+    res.redirect('/')
+
   } else {
     message = false;
     if (req.session.invalid) {
@@ -50,7 +51,9 @@ router.post('/login', function (req, res) {
             .then(check => {
               if (check) {
                 req.session.user = { username: result.name, id: result._id };
+
                 res.redirect('/');
+
               } else {
                 req.session.invalid = true
                 res.redirect('/login')
