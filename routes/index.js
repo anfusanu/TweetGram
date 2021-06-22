@@ -7,16 +7,15 @@ const verifyLogin = (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
-    res.redirect('/Nacmen/login');
+    res.redirect('/login');
   }
 }
 
 
 /* GET home page. */
-router.get('/chat', verifyLogin, function (req, res, next) {
+router.get('/', verifyLogin, function (req, res, next) {
   db.get().collection('messages').find().toArray()
     .then((messages) => {
-      console.log(messages);
       res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
       res.render('index', { messages, user: req.session.user })
     })
@@ -25,7 +24,7 @@ router.get('/chat', verifyLogin, function (req, res, next) {
 
 router.get('/login', function (req, res) {
   if (req.session.user) {
-    res.redirect('/Nacmen/chat')
+    res.redirect('/chat')
   } else {
     message = false;
     if (req.session.invalid) {
@@ -44,17 +43,17 @@ router.post('/login', function (req, res) {
     .then((result) => {
       if (!result) {
         req.session.invalid = true
-        res.redirect('/Nacmen/login')
+        res.redirect('/login')
       } else {
         if (result.status) {
           bcrypt.compare(formData.password, result.password)
             .then(check => {
               if (check) {
                 req.session.user = { username: result.name, id: result._id };
-                res.redirect('/Nacmen/chat');
+                res.redirect('/');
               } else {
                 req.session.invalid = true
-                res.redirect('/Nacmen/login')
+                res.redirect('/login')
               }
             })
         }

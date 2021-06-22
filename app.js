@@ -17,7 +17,6 @@ const io = require('socket.io')(server)
 
 io.on('connection', (socket) => {
   socket.on('message', (msg) => {
-    console.log(msg);
     var dt = new Date()
     db.get().collection('messages').insertOne({
       senderId: msg.userId,
@@ -27,12 +26,10 @@ io.on('connection', (socket) => {
       time: (dt.getHours() + ':' + dt.getMinutes())
     })
       .then((result) => {
-        // console.log(result);
-
+        socket.broadcast.emit('message', msg)
       })
       .catch(error => console.error(error))
 
-    socket.broadcast.emit('message', msg)
   })
 
 })
@@ -45,7 +42,6 @@ app.set('view engine', 'hbs');
 
 
 hbs.registerHelper('ifeq', function (arg1, arg2, options) {
-  // console.log(`arg1 is ${arg1} and arg2 is ${arg2}`)
   return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
 });
 
@@ -73,7 +69,7 @@ db.connect((err) => {
   }
 }
 );
-app.use('/Nacmen', indexRouter);
+app.use('/', indexRouter);
 
 
 // catch 404 and forward to error handler
