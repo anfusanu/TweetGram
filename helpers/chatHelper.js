@@ -8,7 +8,7 @@ module.exports = {
         db.get().collection(process.env.COL_LOGIN).findOne({ email: cred.email })
             .then(result => {
                 if (result) callback({ userExist: true, userName: cred.given_name, userId: result._id });
-                else callback({ userExist: true });
+                else callback({ userExist: false });
             });
 
     },
