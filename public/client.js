@@ -16,7 +16,8 @@ textarea.addEventListener('keyup', (e) => {
         } else {
             let userName = document.getElementById('username').value;
             let userId = document.getElementById('userid').value;
-            sendMessage(e.target.value, userName, userId)
+
+            sendMessage(e.target.value, userName, userId, image.value)
         }
     }
 })
@@ -27,15 +28,16 @@ sendButton.addEventListener('click', (e) => {
     } else {
         let userName = document.getElementById('username').value;
         let userId = document.getElementById('userid').value;
-        sendMessage(input.value, userName, userId)
+        sendMessage(input.value, userName, userId, image.value)
     }
 })
 
-function sendMessage(message, userName, userId) {
+function sendMessage(message, userName, userId, image) {
     let msg = {
         user: userName,
         userId: userId,
-        message: message.trim()
+        message: message.trim(),
+        image
     }
     // Append 
     appendMessage(msg, 'right')
@@ -55,7 +57,7 @@ function appendMessage(msg, type) {
     let markup = `
     <div class="conversation-list">
         <div class="chat-avatar">
-            <img src="${image.value}" alt="">
+            <img src="${msg.image}" alt="">
         </div>
         <div class="user-chat-content">
             <div class="ctext-wrap">

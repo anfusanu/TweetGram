@@ -3,7 +3,7 @@
 
 
     <!-- Start User chat -->
-    <div class="user-chat w-100">
+    <div style="background-color: rgb(24, 24, 32);" class="w-100">
         <div class="d-lg-flex">
 
             <input type="hidden" id="username" value="{{user.username}}">
@@ -17,11 +17,7 @@
                     <div class="row align-items-center">
                         <div class="col-sm-4 col-8">
                             <div class="media align-items-center">
-                                <div class="d-block d-lg-none mr-2">
-                                    <a href="javascript: void(0);"
-                                        class="user-chat-remove text-muted font-size-16 p-2"><i
-                                            class="ri-arrow-left-s-line"></i></a>
-                                </div>
+
                                 <div class="mr-3">
                                     <img src="/Nac.png" class="rounded-circle avatar-xs" alt="">
                                 </div>
@@ -50,7 +46,8 @@
                                     </div>
                                 </li> --}}
                                 <li class="list-inline-item d-none d-lg-inline-block">
-                                    <button type="button" style="font-weight: 800;" class="btn btn-outline-danger px-3">
+                                    <button type="button" style="font-weight: 800;" class="btn btn-outline-danger px-3"
+                                        onclick="/logout">
                                         ESC
                                     </button>
                                 </li>
@@ -75,6 +72,16 @@
                                 </div>
                                 <div class="user-chat-content">
                                     <div class="ctext-wrap">
+                                        <div class="dropdown align-self-end">
+                                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="ri-more-2-fill"></i>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Delete
+                                                    <i class="ri-delete-bin-line float-right text-muted"></i></a>
+                                            </div>
+                                        </div>
                                         <div class="ctext-wrap-content">
                                             <p class="mb-0">
                                                 {{message}}
@@ -107,22 +114,7 @@
                                                 <span class="align-middle">{{time}}</span>
                                             </p>
                                         </div>
-                                        <div class="dropdown align-self-start">
-                                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                                aria-haspopup="true" aria-expanded="false">
-                                                <i class="ri-more-2-fill"></i>
-                                            </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">Copy <i
-                                                        class="ri-file-copy-line float-right text-muted"></i></a>
-                                                <a class="dropdown-item" href="#">Save <i
-                                                        class="ri-save-line float-right text-muted"></i></a>
-                                                <a class="dropdown-item" href="#">Forward <i
-                                                        class="ri-chat-forward-line float-right text-muted"></i></a>
-                                                <a class="dropdown-item" href="#">Delete <i
-                                                        class="ri-delete-bin-line float-right text-muted"></i></a>
-                                            </div>
-                                        </div>
+
                                     </div>
 
                                     <div class="conversation-name">{{senderName}}</div>
@@ -192,20 +184,3 @@
     <!-- End User chat -->
 </div>
 <!-- end  layout wrapper -->
-
-<!-- JAVASCRIPT -->
-<script src="static/js/jquery.min.js"></script>
-<script src="static/js/bootstrap.bundle.min.js"></script>
-<script src="static/js/simplebar.min.js"></script>
-<script src="static/js/waves.min.js"></script>
-
-<!-- Magnific Popup-->
-<script src="static/js/jquery.magnific-popup.min.js"></script>
-
-<!-- owl.carousel js -->
-<script src="static/js/owl.carousel.min.js"></script>
-
-<!-- page init -->
-<script src="static/js/index.init.js"></script>
-
-<script src="static/js/app.js"></script>

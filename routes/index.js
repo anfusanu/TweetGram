@@ -23,7 +23,7 @@ const notLogin = (req, res, next) => {
 
 /* GET home page. */
 router.get('/', verifyLogin, function (req, res, next) {
-  helper.getMessages(messages => {
+  helper.getMessages((messages) => {
     res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
     res.render('index', { messages, user: req.session.user })
   })
