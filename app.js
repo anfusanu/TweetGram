@@ -81,8 +81,8 @@ app.use(passport.initialize());
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  // callbackURL: "https://nacmen.anfus.xyz/google"
-  callbackURL: "http://localhost:3001/google"
+  callbackURL: "https://nacmen.anfus.xyz/google"
+  // callbackURL: "http://localhost:3001/google"
 
 
 },
