@@ -48,7 +48,7 @@ router.get('/google',
         console.log(user);
         req.session.user = { username: user.userName, id: user.userId };
         res.redirect('/');
-      } else res.send('Access Denied');
+      } else res.redirect('/auth.png');
     })
   });
 
