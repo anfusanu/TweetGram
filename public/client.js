@@ -4,7 +4,10 @@ window.addEventListener('onload', () => {
 
 const socket = io()
 let textarea = document.querySelector('#textarea')
-let messageArea = document.querySelector('.message__area')
+let messageArea = document.querySelector('#message__area')
+let sendButton = document.getElementById('sendButton')
+let input = document.getElementById('textarea');
+let image = document.getElementById('image');
 
 textarea.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
@@ -17,6 +20,16 @@ textarea.addEventListener('keyup', (e) => {
         }
     }
 })
+sendButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (input.value.trim() == '' || input.value.trim().length == 0) {
+        alert('Type something');
+    } else {
+        let userName = document.getElementById('username').value;
+        let userId = document.getElementById('userid').value;
+        sendMessage(input.value, userName, userId)
+    }
+})
 
 function sendMessage(message, userName, userId) {
     let msg = {
@@ -25,7 +38,7 @@ function sendMessage(message, userName, userId) {
         message: message.trim()
     }
     // Append 
-    appendMessage(msg, 'outgoing')
+    appendMessage(msg, 'right')
     textarea.value = ''
     scrollToBottom()
 
@@ -35,21 +48,37 @@ function sendMessage(message, userName, userId) {
 }
 
 function appendMessage(msg, type) {
-    let mainDiv = document.createElement('div')
-    let className = type
-    mainDiv.classList.add(className, 'message')
+    let mainList = document.createElement('li')
+    mainList.classList.add(type)
+    var currentdate = new Date();
 
     let markup = `
-        <h4>${msg.user}</h4>
-        <p>${msg.message}</p>
+    <div class="conversation-list">
+        <div class="chat-avatar">
+            <img src="${image.value}" alt="">
+        </div>
+        <div class="user-chat-content">
+            <div class="ctext-wrap">
+                <div class="ctext-wrap-content">
+                    <p class="mb-0">
+                        ${msg.message}
+                    </p>
+                    <p class="chat-time mb-0"><i class="ri-time-line align-middle"></i>
+                        <span class="align-middle">${currentdate.getHours() + ":" + currentdate.getMinutes()}</span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
     `
-    mainDiv.innerHTML = markup
-    messageArea.appendChild(mainDiv)
+    mainList.innerHTML = markup
+    messageArea.appendChild(mainList)
 }
 
 // Recieve messages 
 socket.on('message', (msg) => {
-    appendMessage(msg, 'incoming')
+    appendMessage(msg, 'left')
     scrollToBottom()
 })
 

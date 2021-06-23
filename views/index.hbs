@@ -1,31 +1,211 @@
-<section class="chat__section">
-    <div class="brand">
-        <img height="40" src="Nac.png" alt="">
-        <h1>NACMEN</h1>
-        <button class="logoutButton" onclick="window.location.href = '/logout'">ESC</button>
-    </div>
-    <input type="hidden" id="username" value="{{user.username}}">
-    <input type="hidden" id="userid" value="{{user.id}}">
+<div class="layout-wrapper d-lg-flex">
 
-    <div class="message__area">
-        {{#each messages}}
-        {{#ifeq senderId ../user.id}}
-        <div class="message outgoing">
-            <h4>{{senderName}}</h4>
-            <p>{{message}}</p>
-            {{!-- <h4>{{date}}</h4> --}}
+
+
+    <!-- Start User chat -->
+    <div class="user-chat w-100">
+        <div class="d-lg-flex">
+
+            <input type="hidden" id="username" value="{{user.username}}">
+            <input type="hidden" id="userid" value="{{user.id}}">
+            <input type="hidden" id="image" value="{{user.img}}">
+
+
+            <!-- start chat conversation section -->
+            <div class="w-100">
+                <div class="p-3 p-lg-4 border-bottom">
+                    <div class="row align-items-center">
+                        <div class="col-sm-4 col-8">
+                            <div class="media align-items-center">
+                                <div class="d-block d-lg-none mr-2">
+                                    <a href="javascript: void(0);"
+                                        class="user-chat-remove text-muted font-size-16 p-2"><i
+                                            class="ri-arrow-left-s-line"></i></a>
+                                </div>
+                                <div class="mr-3">
+                                    <img src="/Nac.png" class="rounded-circle avatar-xs" alt="">
+                                </div>
+                                <div class="media-body overflow-hidden">
+                                    <h5 class="font-size-16 mb-0 text-truncate"><a href="#"
+                                            class="text-reset user-profile-show">NACMEN</a>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8 col-4">
+                            <ul class="list-inline user-chat-nav text-right mb-0">
+
+                                {{!-- <li class="list-inline-item">
+                                    <div class="dropdown">
+                                        <button class="btn nav-btn dropdown-toggle" type="button" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="ri-search-line"></i>
+                                        </button>
+                                        <div class="dropdown-menu p-0 dropdown-menu-right dropdown-menu-md">
+                                            <div class="search-box p-2">
+                                                <input type="text" class="form-control bg-light border-0"
+                                                    placeholder="Search..">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li> --}}
+                                <li class="list-inline-item d-none d-lg-inline-block">
+                                    <button type="button" style="font-weight: 800;" class="btn btn-outline-danger px-3">
+                                        ESC
+                                    </button>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- end chat user head -->
+
+                <!-- start chat conversation -->
+                <div class="chat-conversation p-3 p-lg-4" data-simplebar="init">
+                    <ul class="list-unstyled mb-0" id='message__area'>
+
+                        {{#each messages}}
+                        {{#ifeq senderId ../user.id}}
+                        <li class="right">
+
+                            <div class="conversation-list">
+                                <div class="chat-avatar">
+                                    <img src="{{../user.img}}" alt="">
+                                </div>
+                                <div class="user-chat-content">
+                                    <div class="ctext-wrap">
+                                        <div class="ctext-wrap-content">
+                                            <p class="mb-0">
+                                                {{message}}
+                                            </p>
+                                            <p class="chat-time mb-0"><i class="ri-time-line align-middle"></i>
+                                                <span class="align-middle">{{time}}</span>
+                                            </p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{else}}
+                        <li>
+                            <div class="conversation-list">
+                                <div class="chat-avatar">
+                                    <img src="{{img}}" alt="">
+                                </div>
+
+                                <div class="user-chat-content">
+
+
+                                    <div class="ctext-wrap">
+                                        <div class="ctext-wrap-content">
+                                            <p class="mb-0">
+                                                {{message}}
+                                            </p>
+                                            <p class="chat-time mb-0"><i class="ri-time-line align-middle"></i>
+                                                <span class="align-middle">{{time}}</span>
+                                            </p>
+                                        </div>
+                                        <div class="dropdown align-self-start">
+                                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="ri-more-2-fill"></i>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="#">Copy <i
+                                                        class="ri-file-copy-line float-right text-muted"></i></a>
+                                                <a class="dropdown-item" href="#">Save <i
+                                                        class="ri-save-line float-right text-muted"></i></a>
+                                                <a class="dropdown-item" href="#">Forward <i
+                                                        class="ri-chat-forward-line float-right text-muted"></i></a>
+                                                <a class="dropdown-item" href="#">Delete <i
+                                                        class="ri-delete-bin-line float-right text-muted"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="conversation-name">{{senderName}}</div>
+                                </div>
+
+                            </div>
+                        </li>
+                        {{/ifeq}}
+                        {{/each}}
+
+
+                        {{!-- <li>
+                            <div class="chat-day-title">
+                                <span class="title">Today</span>
+                            </div>
+                        </li> --}}
+
+
+                    </ul>
+                </div>
+                <!-- end chat conversation end -->
+
+                <!-- start chat input section -->
+                <div class="p-3 p-lg-4 border-top mb-0">
+                    <div class="row no-gutters">
+                        <div class="col">
+                            <div>
+                                <input type="text" class="form-control form-control-lg bg-light border-light"
+                                    id='textarea' placeholder="Enter Message...">
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <div class="chat-input-links ml-md-2">
+                                <ul class="list-inline mb-0">
+                                    {{!-- <li class="list-inline-item">
+                                        <button type="button"
+                                            class="btn btn-link text-decoration-none font-size-16 btn-lg waves-effect"
+                                            data-toggle="tooltip" data-placement="top" title="Emoji">
+                                            <i class="ri-emotion-happy-line"></i>
+                                        </button>
+                                    </li> --}}
+                                    {{!-- <li class="list-inline-item">
+                                        <button type="button"
+                                            class="btn btn-link text-decoration-none font-size-16 btn-lg waves-effect"
+                                            data-toggle="tooltip" data-placement="top" title="Attached File">
+                                            <i class="ri-attachment-line"></i>
+                                        </button>
+                                    </li> --}}
+                                    <li class="list-inline-item">
+                                        <button type="button" id='sendButton'
+                                            class="btn btn-primary font-size-16 btn-lg chat-send waves-effect waves-light">
+                                            <i class="ri-send-plane-2-fill"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end chat input section -->
+            </div>
+            <!-- end chat conversation section -->
 
         </div>
-        {{else}}
-        <div class="message incoming">
-            <h4>{{senderName}}</h4>
-            <p>{{message}}</p>
-        </div>
-        {{/ifeq}}
-        {{/each}}
+    </div>
+    <!-- End User chat -->
+</div>
+<!-- end  layout wrapper -->
 
-    </div>
-    <div>
-        <textarea id="textarea" cols="30" rows="1" placeholder="Write a message..." required></textarea>
-    </div>
-</section>
+<!-- JAVASCRIPT -->
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.bundle.min.js"></script>
+<script src="static/js/simplebar.min.js"></script>
+<script src="static/js/waves.min.js"></script>
+
+<!-- Magnific Popup-->
+<script src="static/js/jquery.magnific-popup.min.js"></script>
+
+<!-- owl.carousel js -->
+<script src="static/js/owl.carousel.min.js"></script>
+
+<!-- page init -->
+<script src="static/js/index.init.js"></script>
+
+<script src="static/js/app.js"></script>

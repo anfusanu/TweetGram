@@ -45,8 +45,7 @@ router.get('/google',
   function (req, res) {
     helper.googleLogin(req.user._json, user => {
       if (user.userExist) {
-        console.log(user);
-        req.session.user = { username: user.userName, id: user.userId };
+        req.session.user = { username: user.userName, id: user.userId, img: user.img };
         res.redirect('/');
       } else res.redirect('/auth.png');
     })

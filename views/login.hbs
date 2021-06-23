@@ -1,6 +1,36 @@
 <style>
-  body{
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  body {
     background-color: black;
+  }
+
+  .loginButton {
+    border: 0;
+    background-color: red;
+    color: white;
+    padding: 4rem;
+    font-size: 3rem;
+    font-weight: 600;
+    border-radius: 3rem;
+  }
+
+  .logoutButton {
+    border: 0;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+
+  .logoutButton:hover {
+    color: red;
   }
 </style>
 <button class="loginButton" onclick="window.location.href = '/login/google'">Google???</button>
