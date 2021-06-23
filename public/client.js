@@ -4,12 +4,13 @@ window.addEventListener('onload', () => {
 
 const socket = io()
 let textarea = document.querySelector('#textarea')
+let input = document.getElementById('textarea').value;
 let messageArea = document.querySelector('.message__area')
 
 textarea.addEventListener('keyup', (e) => {
     if (e.key === 'Enter') {
-        if (textarea.value == '') {
-            alert('No more');
+        if (input.trim() == '' || input.trim().length == 0) {
+            alert('Type something');
         } else {
             let userName = document.getElementById('username').value;
             let userId = document.getElementById('userid').value;
