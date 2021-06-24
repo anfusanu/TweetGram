@@ -1,5 +1,5 @@
 window.addEventListener('onload', () => {
-    scrollToBottom()
+    $('#message__area').scrollTop($('#message__area').height())
 })
 
 const socket = io()
@@ -33,11 +33,14 @@ sendButton.addEventListener('click', (e) => {
 })
 
 function sendMessage(message, userName, userId, image) {
+    var dt = new Date();
     let msg = {
         user: userName,
         userId: userId,
         message: message.trim(),
-        image
+        image,
+        date: dt.getDate() + '-' + (dt.getMonth() + 1) + '-' + dt.getFullYear(),
+        time: dt.getHours() + ":" + dt.getMinutes()
     }
     // Append 
     appendMessage(msg, 'right')
@@ -52,7 +55,6 @@ function sendMessage(message, userName, userId, image) {
 function appendMessage(msg, type) {
     let mainList = document.createElement('li')
     mainList.classList.add(type)
-    var currentdate = new Date();
 
     let markup = `
     <div class="conversation-list">
@@ -66,7 +68,7 @@ function appendMessage(msg, type) {
                         ${msg.message}
                     </p>
                     <p class="chat-time mb-0"><i class="ri-time-line align-middle"></i>
-                        <span class="align-middle">${currentdate.getHours() + ":" + currentdate.getMinutes()}</span>
+                        <span class="align-middle">${msg.time}</span>
                     </p>
                 </div>
 

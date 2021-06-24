@@ -25,9 +25,9 @@ io.on('connection', (socket) => {
       senderId: msg.userId,
       senderName: msg.user,
       message: msg.message,
-      img : msg.image,
-      date: (dt.getDate() + '-' + (dt.getMonth() + 1) + '-' + dt.getFullYear()),
-      time: (dt.getHours() + ':' + dt.getMinutes())
+      img: msg.image,
+      date: msg.date,
+      time: msg.time
     })
       .then((result) => {
         socket.broadcast.emit('message', msg)
@@ -60,14 +60,14 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'keyboard_cat',
-  cookie: { maxAge: 6000000 },
+  cookie: { maxAge: 60000000 },
   resave: false,
   saveUninitialized: true
 
 }))
 db.connect((err) => {
   if (err) {
-    console.log('Database Error');
+    res.render('error', { layout: null });
   } else {
     console.log('Database Connected');
   }
