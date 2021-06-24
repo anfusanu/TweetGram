@@ -1,6 +1,3 @@
-window.addEventListener('onload', () => {
-    $('#message__area').scrollTop($('#message__area').height())
-})
 
 const socket = io()
 let textarea = document.querySelector('#textarea')
@@ -46,6 +43,8 @@ function sendMessage(message, userName, userId, image) {
     appendMessage(msg, 'right')
     textarea.value = ''
     scrollToBottom()
+    $('#message__area').animate({ scrollTop: $('#message__area').prop("scrollHeight") }, 500);
+
 
     // Send to server 
     socket.emit('message', msg)
